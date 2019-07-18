@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".StudentRegistration">
+    
+    
+    
+    
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/editUser"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="@android:color/background_light"
+                android:ems="10"
+                android:hint="@string/user"
+                android:inputType="textPersonName"
+                android:textColor="@android:color/background_light"
+                android:textColorHint="@android:color/background_light"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editEmail"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/editUser"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="@android:color/background_light"
+                android:ems="10"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:textColor="@android:color/background_light"
+                android:textColorHint="@android:color/background_light"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editFirstName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/editEmail"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="@android:color/background_light"
+                android:ems="10"
+                android:hint="@string/first_name"
+                android:inputType="textPersonName"
+                android:textColor="@android:color/background_light"
+                android:textColorHint="@android:color/background_light"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editLastName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/editFirstName"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="@android:color/background_light"
+                android:ems="10"
+                android:hint="@string/last_name"
+                android:inputType="textPersonName"
+                android:textColor="@android:color/background_light"
+                android:textColorHint="@android:color/background_light"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/spinDept"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/spinClass"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:entries="@array/dept_arrays"
+                android:prompt="@string/dept_prompt"
+                android:theme="@style/SpinnerThemeLight"
+                android:popupBackground="@android:color/black"
+                android:spinnerMode="dialog" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@android:color/white"/>
+
+
+
+
+            <Spinner
+                android:id="@+id/spinClass"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/editLastName"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:entries="@array/class_arrays"
+                android:prompt="@string/class_prompt"
+                android:theme="@style/SpinnerThemeLight"
+                android:popupBackground="@android:color/black"
+                android:spinnerMode="dialog" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@android:color/white"/>
+
+
+
+            <EditText
+                android:id="@+id/editContact"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/spinDept"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="@android:color/background_light"
+                android:ems="10"
+                android:hint="@string/contact"
+                android:inputType="phone"
+                android:textColor="@android:color/background_light"
+                android:textColorHint="@android:color/background_light"
+                android:textSize="20sp" />
+
+
+            <RadioGroup
+                android:id="@+id/radioGender"
+                android:layout_width="match_parent"
+                android:layout_below="@id/editContact"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content" >
+
+                <RadioButton
+                    android:id="@+id/radioMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="20sp"
+                    android:checked="true"
+                    android:textColor="@android:color/background_light"
+                    android:text="@string/male" />
+
+                <RadioButton
+                    android:id="@+id/radioFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="20sp"
+                    android:textColor="@android:color/background_light"
+                    android:text="@string/female" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/editPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/radioGender"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="@android:color/background_light"
+                android:ems="10"
+                android:hint="@string/pass"
+                android:inputType="textPassword"
+                android:textColor="@android:color/background_light"
+                android:textColorHint="@android:color/background_light"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editConPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/editPassword"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="@android:color/background_light"
+                android:ems="10"
+                android:hint="@string/con_pass"
+                android:inputType="textPassword"
+                android:textColor="@android:color/background_light"
+                android:textColorHint="@android:color/background_light"
+                android:textSize="20sp" />
+
+
+            <Button
+                android:id="@+id/btnRegistration"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_below="@id/editConPassword"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="50dp"
+                android:layout_marginEnd="50dp"
+                android:backgroundTint="@android:color/holo_blue_bright"
+                android:text="@string/registration"
+                android:textAllCaps="true"
+                android:textSize="24sp" />
+
+
+        </LinearLayout>
+        
+        
+        
+    </ScrollView>
+
+
+</RelativeLayout>

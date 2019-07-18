@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">AttendanceTaker</string>
+    <string name="education">Education</string>
+    <string name="st_login">Student Login</string>
+    <string name="lectural_login">Lectural Login</string>
+    <string name="user">Username</string>
+    <string name="pass">Password</string>
+    <string name="login">Login</string>
+    <string name="createAc">Not Account Yet ? Create One</string>
+    <string name="email">Email</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="clas">Class</string>
+    <string name="dept">Dept</string>
+    <string name="contact">Contact</string>
+    <string name="gender">Gender</string>
+    <string name="registration">Registration</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="con_pass">Confirm Password</string>
+
+
+    //Spinner Required Strings
+
+    <string name="class_prompt">Select Your Class</string>
+    <string-array name="class_arrays">
+        <item>First Year (FY)</item>
+        <item>Second Year (SY)</item>
+        <item>Third Year (TY)</item>
+    </string-array>
+
+    <string name="dept_prompt">Select Your Department</string>
+    <string-array name="dept_arrays">
+        <item>Computer Science (CS)</item>
+    </string-array>
+
+    //End Spinner Required Strings
+
+</resources>
