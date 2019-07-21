@@ -23,8 +23,11 @@ public class StudentRegistration extends AppCompatActivity {
     Button btnRegistration;
     Spinner spinDept,spinClass;
     boolean validate;
-    String studentCreateUrl = "http://10.0.2.2:8000/attendance/api/student/create/";
-    String studentValidateUrl ="http://10.0.2.2:8000/attendance/api/student/user-validate/";
+    //String studentCreateUrl = "http://10.0.2.2:8000/attendance/api/student/create/";
+    //String studentValidateUrl ="http://10.0.2.2:8000/attendance/api/student/user-validate/";
+
+    String studentCreateUrl = "http://192.168.1.105:8000/attendance/api/student/create/";
+    String studentValidateUrl ="http://192.168.1.105:8000/attendance/api/student/user-validate/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

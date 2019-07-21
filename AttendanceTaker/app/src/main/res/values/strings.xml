@@ -3,6 +3,7 @@
     <string name="education">Education</string>
     <string name="st_login">Student Login</string>
     <string name="lectural_login">Lectural Login</string>
+    <string name="useremail">Username or Email </string>
     <string name="user">Username</string>
     <string name="pass">Password</string>
     <string name="login">Login</string>

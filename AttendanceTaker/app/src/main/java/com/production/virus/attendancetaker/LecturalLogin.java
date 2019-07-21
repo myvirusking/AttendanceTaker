@@ -6,7 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -19,7 +22,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StudentLogin extends AppCompatActivity {
+public class LecturalLogin extends AppCompatActivity {
+
     TextView txtCreateAc;
     EditText editUser,editPass;
     Button btnLogin;
@@ -30,25 +34,16 @@ public class StudentLogin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_login);
+        setContentView(R.layout.activity_lectural_login);
         editPass = findViewById(R.id.editPass);
         editUser = findViewById(R.id.editUser);
         btnLogin = findViewById(R.id.btnLogin);
-        txtCreateAc = findViewById(R.id.txtCreateAc);
         sharedpreferences = getSharedPreferences("login", this.MODE_PRIVATE);
         String token = sharedpreferences.getString("token","");
         String member = sharedpreferences.getString("member","");
-        
+
 
         // Login Code Start
-        txtCreateAc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent in = new Intent(StudentLogin.this,StudentRegistration.class);
-                startActivity(in);
-            }
-        });
-
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,19 +58,17 @@ public class StudentLogin extends AppCompatActivity {
                             @Override
                             public void onResponse(JSONObject response) {
                                 try {
-                                    Toast.makeText(StudentLogin.this,response.toString(),Toast.LENGTH_LONG).show();
+                                    Toast.makeText(LecturalLogin.this,response.toString(),Toast.LENGTH_LONG).show();
                                     Log.e("suceess",response.getString("token"));
-                                    if(response.getString("member").equals("student")){
-                                        Toast.makeText(StudentLogin.this,"You Are Student",Toast.LENGTH_LONG).show();
+                                    if(response.getString("member").equals("lectural")){
+                                        Toast.makeText(LecturalLogin.this,"You Are Lectural",Toast.LENGTH_LONG).show();
                                         SharedPreferences.Editor editor = sharedpreferences.edit();
                                         editor.putString("token",response.getString("token"));
-                                        editor.putString("member","student");
+                                        editor.putString("member","lectural");
                                         editor.commit();
-                                        Intent in = new Intent(StudentLogin.this,StudentDashboard.class);
-                                        startActivity(in);
                                     }
                                     else{
-                                        Toast.makeText(StudentLogin.this,"Not A Student",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(LecturalLogin.this,"Not A Lectural",Toast.LENGTH_LONG).show();
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -84,18 +77,17 @@ public class StudentLogin extends AppCompatActivity {
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(StudentLogin.this,error.toString(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(LecturalLogin.this,error.toString(),Toast.LENGTH_LONG).show();
                     }
                 });
 
-                VolleySingleton.getInstance(StudentLogin.this).addToRequestQueue(jsonArrayRequest);
+                VolleySingleton.getInstance(LecturalLogin.this).addToRequestQueue(jsonArrayRequest);
                 //Using Authentication Get Token
             }
         });
         // Login Code End
 
 
-
-
+        
     }
 }
