@@ -12,17 +12,22 @@
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="clas">Class</string>
-    <string name="dept">Dept</string>
+    <string name="dept">Department</string>
     <string name="contact">Contact</string>
     <string name="gender">Gender</string>
-    <string name="registration">Registration</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="con_pass">Confirm Password</string>
+    <string name="registration">Registration</string>
+    <string name="smart_attendance">Smart Attendance</string>
+    <string name="manual_attendance">Manual Attendance</string>
+    <string name="report">Report Link</string>
+    <string name="sub">Subject</string>
+    <string name="take_attendance">Take Attendance</string>
 
 
-    //Spinner Required Strings
-
+    //***Spinner Required Strings***
+    <string name="sub_prompt">Select Your Subject</string>
     <string name="class_prompt">Select Your Class</string>
     <string-array name="class_arrays">
         <item>First Year (FY)</item>
@@ -34,7 +39,6 @@
     <string-array name="dept_arrays">
         <item>Computer Science (CS)</item>
     </string-array>
-
-    //End Spinner Required Strings
+    //***End Spinner Required Strings***
 
 </resources>

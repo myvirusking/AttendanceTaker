@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+
 public class StudentDashboard extends AppCompatActivity {
     SharedPreferences.Editor editor;
     @Override
@@ -16,10 +17,8 @@ public class StudentDashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_dashboard);
 
-        Toolbar myToolbar = findViewById(R.id.my_toolbar);
-        myToolbar.inflateMenu(R.menu.dashboard_menu);
-        setSupportActionBar(myToolbar);
-
+        Toolbar dashboard_toolbar = findViewById(R.id.dashboard_toolbar);
+        setSupportActionBar(dashboard_toolbar);
         SharedPreferences sharedpreferences = getSharedPreferences("login", this.MODE_PRIVATE);
         editor = sharedpreferences.edit();
 

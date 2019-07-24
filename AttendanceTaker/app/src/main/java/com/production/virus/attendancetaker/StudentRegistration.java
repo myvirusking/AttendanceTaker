@@ -16,16 +16,17 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class StudentRegistration extends AppCompatActivity {
     EditText editUser,editFirstName,editLastName,editEmail,editContact,editPassword,editConPassword;
     RadioGroup radioGenderGroup;
     RadioButton radioGenderButton;
     Button btnRegistration;
     Spinner spinDept,spinClass;
-    boolean validate;
+    boolean validate=true;
+    int selectedId;
     //String studentCreateUrl = "http://10.0.2.2:8000/attendance/api/student/create/";
     //String studentValidateUrl ="http://10.0.2.2:8000/attendance/api/student/user-validate/";
-
     String studentCreateUrl = "http://192.168.1.105:8000/attendance/api/student/create/";
     String studentValidateUrl ="http://192.168.1.105:8000/attendance/api/student/user-validate/";
 
@@ -45,25 +46,24 @@ public class StudentRegistration extends AppCompatActivity {
         editPassword = findViewById(R.id.editPassword);
         editConPassword = findViewById(R.id.editConPassword);
         btnRegistration = findViewById(R.id.btnRegistration);
-
-        int selectedId = radioGenderGroup.getCheckedRadioButtonId();
+        selectedId = radioGenderGroup.getCheckedRadioButtonId();
         radioGenderButton = findViewById(selectedId);
 
+
+        //----------------------------------Start Student Registration Code----------------------------------
         btnRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validate = allRequiredValidation();
 
-                System.err.println("validate ======= " + validate);
-
-                //Student Registration
                 if(validate == true){
                     StringRequest stringRequest = new StringRequest(Request.Method.POST,studentCreateUrl,
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
-                                    Toast.makeText(StudentRegistration.this,"You Account Register Successfully",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(StudentRegistration.this,"✔ Your Account Register Successfully",Toast.LENGTH_LONG).show();
                                     Intent in = new Intent(StudentRegistration.this,StudentLogin.class);
+                                    in.putExtra("user",editUser.getText().toString().toLowerCase());
                                     startActivity(in);
                                 }
                             },
@@ -91,27 +91,22 @@ public class StudentRegistration extends AppCompatActivity {
                     };
                     VolleySingleton.getInstance(StudentRegistration.this).addToRequestQueue(stringRequest);
 
-
                 }
-                // End Student Registration
-
-
             }
         });
-
-
-
+        //----------------------------------End Student Registration Code----------------------------------
 
     }
 
 
+    //----------------------------------Start All Essential + Required Fields Validation----------------------------------
     protected boolean allRequiredValidation(){
-        //Username And Email Validation
         Map<String,String> params = new HashMap<>();
         params.put("username",editUser.getText().toString());
         params.put("email",editEmail.getText().toString());
         JSONObject jsonObject = new JSONObject(params);
 
+        //***Username And Email Validation***
         JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(Request.Method.POST, studentValidateUrl, jsonObject,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -128,7 +123,6 @@ public class StudentRegistration extends AppCompatActivity {
                                 validate = false;
                             }
                             else{
-                                System.err.println("===================Else Called========================= ");
                                 validate = true;
                             }
                         } catch (JSONException e) {
@@ -143,17 +137,20 @@ public class StudentRegistration extends AppCompatActivity {
         });
 
         VolleySingleton.getInstance(StudentRegistration.this).addToRequestQueue(jsonArrayRequest);
-        //End Username And Email Validation
 
         if(validate == false){
             return false;
         }
         else {
-            // All Essential + Required Fields Validator ========================================
+            //***Required Fields Validation***
             if (editUser.length() == 0) {
                 editUser.setError("Username Cannot Be Empty!");
             } else if (!editUser.getText().toString().matches("[a-zA-Z0-9_]+")) {
                 editUser.setError("Please Enter Valid Username!");
+            } else if (editEmail.length() == 0) {
+                editEmail.setError("Email Cannot Be Empty!");
+            } else if (!editEmail.getText().toString().matches("[a-zA-Z0-9._-]+@[a-zA-Z]+\\.[a-zA-Z]+")) {
+                editEmail.setError("Please Enter Valid Email!");
             } else if (editFirstName.length() == 0) {
                 editFirstName.setError("FirstName Cannot Be Empty!");
             } else if (!editFirstName.getText().toString().matches("[a-zA-Z]+")) {
@@ -162,10 +159,6 @@ public class StudentRegistration extends AppCompatActivity {
                 editLastName.setError("LastName Cannot Be Empty!y");
             } else if (!editLastName.getText().toString().matches("[a-zA-Z]+")) {
                 editLastName.setError("Please Enter Valid Last Name!");
-            } else if (editEmail.length() == 0) {
-                editEmail.setError("Email Cannot Be Empty!");
-            } else if (!editEmail.getText().toString().matches("[a-zA-Z0-9._-]+@[a-zA-Z]+\\.[a-zA-Z]+")) {
-                editEmail.setError("Please Enter Valid Email!");
             } else if (editContact.length() == 0) {
                 editContact.setError("Contact Cannot Be Empty!");
             } else if (!editContact.getText().toString().matches("[0-9]{10}")) {
@@ -182,7 +175,7 @@ public class StudentRegistration extends AppCompatActivity {
             return false;
         }
 
-        // End All Essential + Required Fields Validator ====================================
     }
+    //----------------------------------Start All Essential + Required Fields Validation----------------------------------
 
 }

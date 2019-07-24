@@ -107,7 +107,6 @@
 
 
 
-
             <Spinner
                 android:id="@+id/spinClass"
                 android:layout_width="match_parent"

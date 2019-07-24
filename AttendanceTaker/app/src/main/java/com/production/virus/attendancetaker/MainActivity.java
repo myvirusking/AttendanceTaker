@@ -7,13 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 
+
 public class MainActivity extends AppCompatActivity {
     Button sdnt_login,lec_login;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Start Login Session Checking
+        //----------------------------------Start Session Checking----------------------------------
         SharedPreferences sharedpreferences = getSharedPreferences("login", this.MODE_PRIVATE);
         String token = sharedpreferences.getString("token","");
         String member = sharedpreferences.getString("member","");
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }else if(member.equals("lectural")) {
             //Toast.makeText(MainActivity.this, "Success -" + token + "\nmember-" + member, Toast.LENGTH_LONG).show();
-            Intent in = new Intent(MainActivity.this,StudentDashboard.class);
+            Intent in = new Intent(MainActivity.this,LecturalDashboard.class);
             startActivity(in);
             finish();
         }
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-        //End Login Session Checking
+        //----------------------------------End Session Checking----------------------------------
 
 
     }
