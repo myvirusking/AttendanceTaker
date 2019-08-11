@@ -9,7 +9,7 @@ import android.widget.*;
 
 
 public class MainActivity extends AppCompatActivity {
-    Button sdnt_login,lec_login;
+    Button student_login,lec_login;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,24 +20,20 @@ public class MainActivity extends AppCompatActivity {
         String member = sharedpreferences.getString("member","");
 
         if(member.equals("student")) {
-            //Toast.makeText(MainActivity.this, "Success -" + token + "\nmember-" + member, Toast.LENGTH_LONG).show();
             Intent in = new Intent(MainActivity.this,StudentDashboard.class);
             startActivity(in);
             finish();
         }else if(member.equals("lectural")) {
-            //Toast.makeText(MainActivity.this, "Success -" + token + "\nmember-" + member, Toast.LENGTH_LONG).show();
             Intent in = new Intent(MainActivity.this,LecturalDashboard.class);
             startActivity(in);
             finish();
         }
         else{
-            Toast.makeText(MainActivity.this,"Error Credentials",Toast.LENGTH_LONG).show();
-
             setContentView(R.layout.activity_main);
-            sdnt_login = findViewById(R.id.button);
+            student_login = findViewById(R.id.button);
             lec_login = findViewById(R.id.button2);
 
-            sdnt_login.setOnClickListener(new View.OnClickListener() {
+            student_login.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent in = new Intent(MainActivity.this,StudentLogin.class);

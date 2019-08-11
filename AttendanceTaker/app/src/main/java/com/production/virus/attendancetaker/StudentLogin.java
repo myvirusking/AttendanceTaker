@@ -22,8 +22,8 @@ public class StudentLogin extends AppCompatActivity {
     TextView txtCreateAc;
     EditText editUser,editPass;
     Button btnLogin;
-    //String authenticateTokenUrl ="http://10.0.2.2:8000/attendance/api/student/authentication-token/";
-    String authenticateTokenUrl ="http://192.168.1.105:8000/attendance/api/student/authentication-token/";
+    String authenticateTokenUrl = MyAlertDialog.urlPrefix+"attendance/api/student/authentication-token/";
+    //String authenticateTokenUrl ="http://192.168.1.105:8000/attendance/api/student/authentication-token/";
     SharedPreferences sharedpreferences;
     ProgressDialog progressdialog;
 
@@ -43,15 +43,8 @@ public class StudentLogin extends AppCompatActivity {
         Intent intent = getIntent();
         String user = intent.getStringExtra("user");
         if(user != null){
-            System.err.print("=================="+user+"===================");
-            Toast.makeText(StudentLogin.this,user,Toast.LENGTH_LONG).show();
             editUser.setText(user);
         }
-        else{
-            System.err.print("==================NULL===================");
-            Toast.makeText(StudentLogin.this,"Null",Toast.LENGTH_LONG).show();
-        }
-
 
         //----------------------------------Start Login Code----------------------------------
         txtCreateAc.setOnClickListener(new View.OnClickListener() {
@@ -82,9 +75,7 @@ public class StudentLogin extends AppCompatActivity {
                             @Override
                             public void onResponse(JSONObject response) {
                                 try {
-                                    Toast.makeText(StudentLogin.this,response.toString(),Toast.LENGTH_LONG).show();
                                     if(response.getString("member").equals("student")){
-                                        Toast.makeText(StudentLogin.this,"You Are Student",Toast.LENGTH_LONG).show();
                                         SharedPreferences.Editor editor = sharedpreferences.edit();
                                         editor.putString("token",response.getString("token"));
                                         editor.putString("user_id",response.getString("user_id"));
@@ -95,7 +86,13 @@ public class StudentLogin extends AppCompatActivity {
                                         startActivity(in);
                                     }
                                     else{
-                                        Toast.makeText(StudentLogin.this,"Not A Student",Toast.LENGTH_LONG).show();
+                                        progressdialog.dismiss();
+                                        Vibrator v = (Vibrator) getSystemService(StudentLogin.this.VIBRATOR_SERVICE);
+                                        v.vibrate(1000);
+                                        Toast.makeText(StudentLogin.this,"✘ Invalid Student Credentials, Please Try Via Lectural Login...",Toast.LENGTH_LONG).show();
+                                        Intent in = new Intent(StudentLogin.this,LecturalLogin.class);
+                                        in.putExtra("user",editUser.getText().toString().toLowerCase());
+                                        startActivity(in);
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -107,7 +104,8 @@ public class StudentLogin extends AppCompatActivity {
                         progressdialog.dismiss();
                         Vibrator v = (Vibrator) getSystemService(StudentLogin.this.VIBRATOR_SERVICE);
                         v.vibrate(1000);
-                        MyAlertDialog.showAlertDialog(StudentLogin.this,"✘ Authentication Failed","Incorrect Username And Password...",false);
+                        MyAlertDialog.showAlertDialog(StudentLogin.this,"✘ API Not Responding",error.toString(),false);
+                        //MyAlertDialog.showAlertDialog(StudentLogin.this,"✘ API Not Responding","Please Contact With Admin!...",false);
                         editPass.setText("");
                     }
                 });

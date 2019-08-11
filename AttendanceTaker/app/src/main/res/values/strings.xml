@@ -2,12 +2,12 @@
     <string name="app_name">AttendanceTaker</string>
     <string name="education">Education</string>
     <string name="st_login">Student Login</string>
-    <string name="lectural_login">Lectural Login</string>
-    <string name="useremail">Username or Email </string>
+    <string name="faculty_login">Faculty Login</string>
+    <string name="useremail">Username / Email </string>
     <string name="user">Username</string>
     <string name="pass">Password</string>
     <string name="login">Login</string>
-    <string name="createAc">Not Account Yet ? Create One</string>
+    <string name="createAc">NOT ACCOUNT YET ? CREATE ONE </string>
     <string name="email">Email</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
@@ -24,6 +24,13 @@
     <string name="report">Report Link</string>
     <string name="sub">Subject</string>
     <string name="take_attendance">Take Attendance</string>
+    <string name="stop_attendance">Stop Attendance</string>
+    <string name="present">Present</string>
+    <string name="check_status">Check Status</string>
+    <string name="forgot_pass">FORGOT PASSWORD ?</string>
+    <string name="sas">Smart Attendance System</string>
+
+
 
 
     //***Spinner Required Strings***

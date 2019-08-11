@@ -1,6 +1,7 @@
 package com.production.virus.attendancetaker;
 
 import android.content.Intent;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,8 +28,8 @@ public class StudentRegistration extends AppCompatActivity {
     int selectedId;
     //String studentCreateUrl = "http://10.0.2.2:8000/attendance/api/student/create/";
     //String studentValidateUrl ="http://10.0.2.2:8000/attendance/api/student/user-validate/";
-    String studentCreateUrl = "http://192.168.1.105:8000/attendance/api/student/create/";
-    String studentValidateUrl ="http://192.168.1.105:8000/attendance/api/student/user-validate/";
+    String studentCreateUrl = MyAlertDialog.urlPrefix+"attendance/api/student/create/";
+    String studentValidateUrl = MyAlertDialog.urlPrefix+"attendance/api/student/user-validate/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +71,10 @@ public class StudentRegistration extends AppCompatActivity {
                                 new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    error.printStackTrace();
-                                    Toast.makeText(StudentRegistration.this,error.toString(),Toast.LENGTH_LONG).show();
+                                    Vibrator v = (Vibrator) getSystemService(StudentRegistration.this.VIBRATOR_SERVICE);
+                                    v.vibrate(1000);
+                                    MyAlertDialog.showAlertDialog(StudentRegistration.this,"✘ API Not Responding",error.toString(),false);
+                                    //MyAlertDialog.showAlertDialog(StudentRegistration.this,"✘ API Not Responding","Please Contact With Admin!...",false);
                                 }
                         }){
                         @Override
@@ -132,7 +135,10 @@ public class StudentRegistration extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(StudentRegistration.this,error.toString(),Toast.LENGTH_LONG).show();
+                Vibrator v = (Vibrator) getSystemService(StudentRegistration.this.VIBRATOR_SERVICE);
+                v.vibrate(1000);
+                MyAlertDialog.showAlertDialog(StudentRegistration.this,"✘ API Not Responding",error.toString(),false);
+                //MyAlertDialog.showAlertDialog(StudentRegistration.this,"✘ API Not Responding","Please Contact With Admin!...",false);
             }
         });
 

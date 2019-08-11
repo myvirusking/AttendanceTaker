@@ -25,8 +25,8 @@ public class LecturalLogin extends AppCompatActivity {
     TextView txtCreateAc;
     EditText editUser,editPass;
     Button btnLogin;
-    //String authenticateTokenUrl ="http://10.0.2.2:8000/attendance/api/student/authentication-token/";
-    String authenticateTokenUrl ="http://192.168.1.105:8000/attendance/api/student/authentication-token/";
+    //String authenticateTokenUrl ="http://192.168.43.219:8000/attendance/api/student/authentication-token/";
+    String authenticateTokenUrl = MyAlertDialog.urlPrefix+"attendance/api/student/authentication-token/";
     SharedPreferences sharedpreferences;
     ProgressDialog progressdialog;
 
@@ -41,6 +41,12 @@ public class LecturalLogin extends AppCompatActivity {
         sharedpreferences = getSharedPreferences("login", this.MODE_PRIVATE);
         String token = sharedpreferences.getString("token","");
         String member = sharedpreferences.getString("member","");
+
+        Intent intent = getIntent();
+        String user = intent.getStringExtra("user");
+        if(user != null){
+            editUser.setText(user);
+        }
 
 
         //----------------------------------Start Login Code----------------------------------
@@ -64,9 +70,7 @@ public class LecturalLogin extends AppCompatActivity {
                             @Override
                             public void onResponse(JSONObject response) {
                                 try {
-                                    Toast.makeText(LecturalLogin.this,response.toString(),Toast.LENGTH_LONG).show();
                                     if(response.getString("member").equals("lectural")){
-                                        Toast.makeText(LecturalLogin.this,"You Are Lectural",Toast.LENGTH_LONG).show();
                                         SharedPreferences.Editor editor = sharedpreferences.edit();
                                         editor.putString("token",response.getString("token"));
                                         editor.putString("user_id",response.getString("user_id"));
@@ -77,7 +81,14 @@ public class LecturalLogin extends AppCompatActivity {
                                         startActivity(in);
                                     }
                                     else{
-                                        Toast.makeText(LecturalLogin.this,"Not A Lectural",Toast.LENGTH_LONG).show();
+                                        progressdialog.dismiss();
+                                        Vibrator v = (Vibrator) getSystemService(LecturalLogin.this.VIBRATOR_SERVICE);
+                                        v.vibrate(1000);
+                                        Toast.makeText(LecturalLogin.this,"✘ Invalid Lectural Credentials, Please Try Via Student Login...",Toast.LENGTH_LONG).show();
+                                        Intent in = new Intent(LecturalLogin.this,StudentLogin.class);
+                                        in.putExtra("user",editUser.getText().toString().toLowerCase());
+                                        startActivity(in);
+
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -89,7 +100,8 @@ public class LecturalLogin extends AppCompatActivity {
                         progressdialog.dismiss();
                         Vibrator v = (Vibrator) getSystemService(LecturalLogin.this.VIBRATOR_SERVICE);
                         v.vibrate(1000);
-                        MyAlertDialog.showAlertDialog(LecturalLogin.this,"✘ Authentication Failed","Incorrect Username And Password...",false);
+                        MyAlertDialog.showAlertDialog(LecturalLogin.this,"✘ API Not Responding",error.toString(),false);
+                        //MyAlertDialog.showAlertDialog(LecturalLogin.this,"✘ API Not Responding","Please Contact With Admin!...",false);
                         editPass.setText("");
                     }
                 });

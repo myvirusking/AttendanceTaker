@@ -32,7 +32,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:text="@string/lectural_login"
+        android:text="@string/faculty_login"
         android:textSize="24sp" />
 
 </RelativeLayout>

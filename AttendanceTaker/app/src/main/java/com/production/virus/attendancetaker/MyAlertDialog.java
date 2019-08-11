@@ -6,7 +6,8 @@ import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
 public class MyAlertDialog {
-
+    //protected static String urlPrefix = "http://192.168.1.106:8000/";
+    protected static String urlPrefix = "http://myvirusking.pythonanywhere.com/";
     public static void showAlertDialog(Context ctx ,String title, String message, Boolean status){
         final String msg = title;
         final Context context = ctx;

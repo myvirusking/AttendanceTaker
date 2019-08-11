@@ -1,7 +1,9 @@
 package com.production.virus.attendancetaker;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,8 +17,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.gson.JsonObject;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
@@ -24,7 +24,7 @@ import java.util.Map;
 
 
 public class SmartAttendance extends AppCompatActivity {
-    Spinner spinSub;
+    Spinner spinSub,spinClass;
     Button btnTakeAttendance;
     SharedPreferences sharedPreferences;
     ProgressDialog progressdialog;
@@ -35,17 +35,20 @@ public class SmartAttendance extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_smart_attendance);
-        String dataFetchURL ="http://192.168.1.105:8000/attendance/api/lectural/fetch-data/";
-        //String dataFetchURL ="http://192.168.43.219:8000/attendance/api/lectural/fetch-data/";
+        //String dataFetchURL ="http://192.168.1.105:8000/attendance/api/lectural/fetch-data/";
+        //String attendanceTriggerActiveURL ="http://192.168.1.105:8000/attendance/api/lectural/attendance-trigger/active/";
+        final String dataFetchURL = MyAlertDialog.urlPrefix+"attendance/api/lectural/fetch-data/";
+        final String attendanceTriggerActiveURL = MyAlertDialog.urlPrefix+"attendance/api/lectural/attendance-trigger/active/";
 
 
         spinSub = findViewById(R.id.spinSub);
+        spinClass = findViewById(R.id.spinClass);
         textDeptValue = findViewById(R.id.textDeptValue);
         btnTakeAttendance = findViewById(R.id.btnTakeAttendance);
         sharedPreferences = getSharedPreferences("login",this.MODE_PRIVATE);
         Map<String,String> params = new HashMap<>();
         params.put("user_id",sharedPreferences.getString("user_id",""));
-        JSONObject jsonObject = new JSONObject(params);
+        final JSONObject jsonObject = new JSONObject(params);
 
 
         //***Progress Dialog Box***
@@ -54,14 +57,14 @@ public class SmartAttendance extends AppCompatActivity {
                 "Data Fetching Please Wait..", true);
         progressdialog.setCancelable(false);
 
-        //----------------------------------Start Lectural Fectch Data----------------------------------
+        //----------------------------------Start Lectural Fetch Data----------------------------------
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, dataFetchURL,jsonObject,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         progressdialog.dismiss();
                         try{
-                            textDeptValue.setText("- "+response.getString("dept"));
+                            textDeptValue.setText(response.getString("dept"));
 
                             int total_len = response.getJSONArray("subject").length();
                             String[] arraySpinnerClas = new String[total_len];
@@ -83,7 +86,11 @@ public class SmartAttendance extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressdialog.dismiss();
-                Toast.makeText(SmartAttendance.this,error.toString(),Toast.LENGTH_LONG).show();
+                Vibrator v = (Vibrator) getSystemService(SmartAttendance.this.VIBRATOR_SERVICE);
+                v.vibrate(1000);
+                //MyAlertDialog.showAlertDialog(SmartAttendance.this,"✘ Error Data Not Fetched","Invalid Credentials...",false);
+                MyAlertDialog.showAlertDialog(SmartAttendance.this,"✘ API Not Responding",error.toString(),false);
+                //MyAlertDialog.showAlertDialog(SmartAttendance.this,"✘ API Not Responding","Please Contact With Admin!...",false);
                 onBackPressed();
             }
         }){
@@ -95,7 +102,7 @@ public class SmartAttendance extends AppCompatActivity {
             }
         };
         VolleySingleton.getInstance(SmartAttendance.this).addToRequestQueue(jsonObjectRequest);
-        //----------------------------------End Lectural Fectch Data----------------------------------
+        //----------------------------------End Lectural Fetch Data----------------------------------
 
 
 
@@ -105,7 +112,58 @@ public class SmartAttendance extends AppCompatActivity {
         btnTakeAttendance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SmartAttendance.this,"Hello",Toast.LENGTH_LONG).show();
+
+                Map<String,String> params = new HashMap<>();
+                params.put("user_id",sharedPreferences.getString("user_id",""));
+                params.put("clas",spinClass.getSelectedItem().toString());
+                params.put("sub",spinSub.getSelectedItem().toString());
+                params.put("dept",textDeptValue.getText().toString());
+                JSONObject jsonObject = new JSONObject(params);
+
+                //***Progress Dialog Box***
+                progressdialog = ProgressDialog.show(
+                        SmartAttendance.this, "Activating Attendance... ",
+                        "Activating Attendance Please Wait..", true);
+                progressdialog.setCancelable(false);
+
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, attendanceTriggerActiveURL,jsonObject,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                progressdialog.dismiss();
+                                try{
+                                    Intent in = new Intent(SmartAttendance.this,SmartAttendanceStop.class);
+                                    in.putExtra("ATM_obj_id",response.getString("ATM_obj_id"));
+                                    startActivity(in);
+
+                                }
+                                catch (JSONException e) {
+                                    progressdialog.dismiss();
+                                    Vibrator v = (Vibrator) getSystemService(SmartAttendance.this.VIBRATOR_SERVICE);
+                                    v.vibrate(1000);
+                                    MyAlertDialog.showAlertDialog(SmartAttendance.this,"✘ Invalid Subject & Class","Please Select Valid Subject And Class...",false);
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressdialog.dismiss();
+                        Vibrator v = (Vibrator) getSystemService(SmartAttendance.this.VIBRATOR_SERVICE);
+                        v.vibrate(1000);
+                        MyAlertDialog.showAlertDialog(SmartAttendance.this,"✘ API Not Responding",error.toString(),false);
+                        //MyAlertDialog.showAlertDialog(SmartAttendance.this,"✘ API Not Responding","Please Contact With Admin!...",false);
+
+                    }
+                }){
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String,String> header = new HashMap<>();
+                        header.put("Authorization","Token "+sharedPreferences.getString("token",""));
+                        return header;
+                    }
+                };
+                VolleySingleton.getInstance(SmartAttendance.this).addToRequestQueue(jsonObjectRequest);
+
             }
         });
         //----------------------------------Smart Attendance Logic End----------------------------------
