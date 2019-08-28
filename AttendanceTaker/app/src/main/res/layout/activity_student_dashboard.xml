@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10"
     tools:context=".StudentDashboard">
 
     <android.support.v7.widget.Toolbar
@@ -12,136 +14,143 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
+        app:titleTextColor="@android:color/white"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+        app:title="@string/dashboard"
+        app:contentInsetStartWithNavigation="0dp"
+        app:subtitle="SAS"/>
 
-        />
 
 
-    <LinearLayout
+    <RelativeLayout
+        android:layout_weight="3"
+        android:background="@drawable/login_top"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_below="@id/dashboard_toolbar"
-        android:gravity="center_horizontal"
-        tools:context=".SmartAttendance">
+        android:layout_height="0dp">
 
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/textGrid"
+            android:text="@string/dashboard"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/textDept"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="@string/dept"
-                android:textSize="25sp" />
+    </RelativeLayout>
 
-            <TextView
-                android:id="@+id/textDeptValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="- Value Here"
-                android:textSize="20sp" />
-        </LinearLayout>
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_weight="6"
+        android:columnCount="2"
+        android:padding="15dp"
+        android:rowCount="2"
+        android:layout_height="0dp">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardGiveAttendance"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="@drawable/card_layout_state_change"
+            app:cardElevation="5dp"
+            app:cardCornerRadius="10dp"
+            android:layout_rowWeight="1">
 
-            <TextView
-                android:id="@+id/textClass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="@string/clas"
-                android:layout_weight="1"
-                android:textSize="25sp" />
-
-
-            <TextView
-                android:id="@+id/textClassValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="- Value Here"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textSub"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="@string/sub"
-                android:layout_weight="1"
-                android:textSize="25sp" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
                 android:orientation="vertical">
 
-                <Spinner
-                    android:id="@+id/spinSub"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:prompt="@string/sub_prompt"
-                    android:spinnerMode="dialog"
-                    android:layout_weight="1" />
-
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="5dp"
+                    android:drawableTop="@drawable/ic_supervisor_account_white_72dp"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
                     android:layout_marginTop="15dp"
-                    android:layout_marginEnd="5dp"
-                    android:background="@android:color/background_dark" />
+                    android:text="@string/give_attendance"/>
 
             </LinearLayout>
 
-        </LinearLayout>
 
-        <Button
-            android:id="@+id/btnCheckStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:padding="15dp"
-            android:textSize="20sp"
-            android:text="@string/check_status" />
+        </android.support.v7.widget.CardView>
 
-        <Button
-            android:id="@+id/btnPresent"
-            android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:layout_margin="60dp"
-            android:textSize="35sp"
-            android:enabled="false"
-            android:text="@string/present" />
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardMyAccount"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="@drawable/card_layout_state_change"
+            app:cardElevation="5dp"
+            app:cardCornerRadius="10dp"
+            android:layout_rowWeight="1">
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_account_box_white_72dp"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/account"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardMyReport"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="@drawable/card_layout_state_change"
+            app:cardElevation="5dp"
+            app:cardCornerRadius="10dp"
+            android:layout_columnSpan="2"
+            android:layout_rowWeight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_event_note_white_72dp"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/my_report"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
 
 
 
-</RelativeLayout>
+    </GridLayout>
+
+
+
+</LinearLayout>

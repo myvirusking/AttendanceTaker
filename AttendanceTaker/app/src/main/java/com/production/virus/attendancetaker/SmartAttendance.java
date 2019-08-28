@@ -6,12 +6,16 @@ import android.content.SharedPreferences;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -25,8 +29,9 @@ import java.util.Map;
 
 public class SmartAttendance extends AppCompatActivity {
     Spinner spinSub,spinClass;
-    Button btnTakeAttendance;
+    Button btnStartAttendance;
     SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     ProgressDialog progressdialog;
     TextView textDeptValue;
 
@@ -35,17 +40,36 @@ public class SmartAttendance extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_smart_attendance);
+
+        // Checking For Internet Connection
+        if(new NoInternetMixins(this).getInternetStatus()){
+        }
+
+
         //String dataFetchURL ="http://192.168.1.105:8000/attendance/api/lectural/fetch-data/";
         //String attendanceTriggerActiveURL ="http://192.168.1.105:8000/attendance/api/lectural/attendance-trigger/active/";
-        final String dataFetchURL = MyAlertDialog.urlPrefix+"attendance/api/lectural/fetch-data/";
-        final String attendanceTriggerActiveURL = MyAlertDialog.urlPrefix+"attendance/api/lectural/attendance-trigger/active/";
+        final String dataFetchURL = MyAlertMixins.urlPrefix+"attendance/api/lectural/fetch-data/";
+        final String attendanceTriggerActiveURL = MyAlertMixins.urlPrefix+"attendance/api/lectural/attendance-trigger/active/";
 
 
         spinSub = findViewById(R.id.spinSub);
         spinClass = findViewById(R.id.spinClass);
         textDeptValue = findViewById(R.id.textDeptValue);
-        btnTakeAttendance = findViewById(R.id.btnTakeAttendance);
+        btnStartAttendance = findViewById(R.id.btnStartAttendance);
         sharedPreferences = getSharedPreferences("login",this.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        //Navigation Code
+        Toolbar dashboard_toolbar = findViewById(R.id.dashboard_toolbar);
+        setSupportActionBar(dashboard_toolbar);
+        dashboard_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        //End Navigation Code
+
         Map<String,String> params = new HashMap<>();
         params.put("user_id",sharedPreferences.getString("user_id",""));
         final JSONObject jsonObject = new JSONObject(params);
@@ -88,9 +112,7 @@ public class SmartAttendance extends AppCompatActivity {
                 progressdialog.dismiss();
                 Vibrator v = (Vibrator) getSystemService(SmartAttendance.this.VIBRATOR_SERVICE);
                 v.vibrate(1000);
-                //MyAlertDialog.showAlertDialog(SmartAttendance.this,"✘ Error Data Not Fetched","Invalid Credentials...",false);
-                MyAlertDialog.showAlertDialog(SmartAttendance.this,"✘ API Not Responding",error.toString(),false);
-                //MyAlertDialog.showAlertDialog(SmartAttendance.this,"✘ API Not Responding","Please Contact With Admin!...",false);
+                MyAlertMixins.showAlertDialog(SmartAttendance.this,"✘ API Not Responding","Please Contact With Admin!...",false);
                 onBackPressed();
             }
         }){
@@ -109,7 +131,7 @@ public class SmartAttendance extends AppCompatActivity {
 
 
         //----------------------------------Smart Attendance Logic Start----------------------------------
-        btnTakeAttendance.setOnClickListener(new View.OnClickListener() {
+        btnStartAttendance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -141,7 +163,7 @@ public class SmartAttendance extends AppCompatActivity {
                                     progressdialog.dismiss();
                                     Vibrator v = (Vibrator) getSystemService(SmartAttendance.this.VIBRATOR_SERVICE);
                                     v.vibrate(1000);
-                                    MyAlertDialog.showAlertDialog(SmartAttendance.this,"✘ Invalid Subject & Class","Please Select Valid Subject And Class...",false);
+                                    MyAlertMixins.showAlertDialog(SmartAttendance.this,"✘ Invalid Subject & Class","Please Select Valid Subject And Class...",false);
                                 }
                             }
                         }, new Response.ErrorListener() {
@@ -150,8 +172,7 @@ public class SmartAttendance extends AppCompatActivity {
                         progressdialog.dismiss();
                         Vibrator v = (Vibrator) getSystemService(SmartAttendance.this.VIBRATOR_SERVICE);
                         v.vibrate(1000);
-                        MyAlertDialog.showAlertDialog(SmartAttendance.this,"✘ API Not Responding",error.toString(),false);
-                        //MyAlertDialog.showAlertDialog(SmartAttendance.this,"✘ API Not Responding","Please Contact With Admin!...",false);
+                        MyAlertMixins.showAlertDialog(SmartAttendance.this,"✘ API Not Responding","Please Contact With Admin!...",false);
 
                     }
                 }){
@@ -169,4 +190,30 @@ public class SmartAttendance extends AppCompatActivity {
         //----------------------------------Smart Attendance Logic End----------------------------------
 
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.dashboard_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                editor.clear();
+                editor.commit();
+                Toast.makeText(SmartAttendance.this,"LOG OUT SUCCESSFULLY", Toast.LENGTH_LONG).show();
+                Intent in = new Intent(SmartAttendance.this,MainActivity.class);
+                startActivity(in);
+                finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
 }

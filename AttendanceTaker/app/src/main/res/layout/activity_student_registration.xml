@@ -15,7 +15,10 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-        />
+        app:navigationIcon="@drawable/ic_arrow_white_24dp"
+        app:subtitle="SAS"
+        app:contentInsetStartWithNavigation="0dp"
+        app:title="@string/registration"/>
 
 
 
@@ -73,7 +76,7 @@
                 android:layout_height="20dp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="20dp"
-                android:src="@drawable/email" />
+                android:src="@drawable/ic_person_blue_24dp" />
 
             <EditText
                 android:id="@+id/editLastName"
@@ -150,7 +153,7 @@
                 android:layout_height="20dp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="20dp"
-                android:src="@drawable/email" />
+                android:src="@drawable/ic_person_blue_24dp" />
 
             <EditText
                 android:id="@+id/editUser"

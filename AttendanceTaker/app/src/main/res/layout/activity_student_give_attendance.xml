@@ -14,11 +14,11 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:contentInsetStartWithNavigation="0dp"
-        app:navigationIcon="@drawable/ic_arrow_white_24dp"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+        app:navigationIcon="@drawable/ic_arrow_white_24dp"
         app:subtitle="SAS"
-        app:title="@string/smart_attendance" />
+        app:contentInsetStartWithNavigation="0dp"
+        app:title="@string/give_attendance"/>
 
 
     <RelativeLayout
@@ -66,7 +66,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
 
-
                 <TextView
                     android:id="@+id/textDept"
                     android:layout_width="110dp"
@@ -85,66 +84,88 @@
                     android:text="@string/dept"
                     android:textSize="18sp"
                     android:textStyle="italic" />
-
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/textClass"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="0"
+                    android:text="@string/clas"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textClassValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/clas"
+                    android:textSize="18sp"
+                    android:textStyle="italic" />
+            </LinearLayout>
+
         </LinearLayout>
 
 
-        <RelativeLayout
-            android:id="@+id/panelClass"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+        <LinearLayout
+            android:id="@+id/panelSubReload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/panelClg"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/blue_border_rounded_cornwe">
+            android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/spinClass"
+
+            <RelativeLayout
+                android:id="@+id/panelSub"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="20dp"
-                android:entries="@array/class_arrays"
-                android:prompt="@string/class_prompt"
-                android:spinnerMode="dialog" />
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/blue_border_rounded_cornwe">
 
-        </RelativeLayout>
+                <Spinner
+                    android:id="@+id/spinSub"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:prompt="@string/sub_prompt"
+                    android:spinnerMode="dialog" />
 
+            </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/panelSub"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@id/panelClass"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp"
-            android:background="@drawable/blue_border_rounded_cornwe">
+            <ImageView
+                android:id="@+id/imgReload"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:src="@drawable/reload"
+                tools:ignore="ContentDescription" />
 
-            <Spinner
-                android:id="@+id/spinSub"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="20dp"
-                android:prompt="@string/sub_prompt"
-                android:spinnerMode="dialog" />
-
-        </RelativeLayout>
+        </LinearLayout>
 
 
         <Button
-            android:id="@+id/btnStartAttendance"
+            android:id="@+id/btnPresent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/panelSub"
-            android:layout_marginStart="50dp"
+            android:layout_below="@id/panelSubReload"
+            android:layout_marginStart="35dp"
             android:layout_marginTop="30dp"
-            android:layout_marginEnd="50dp"
+            android:layout_marginEnd="35dp"
             android:background="@drawable/blue_fill_rounded_color"
+            android:enabled="false"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
-            android:text="@string/start_attendance"
+            android:text="@string/present"
             android:textColor="@android:color/white"
             android:textSize="22sp"
             android:textStyle="bold" />

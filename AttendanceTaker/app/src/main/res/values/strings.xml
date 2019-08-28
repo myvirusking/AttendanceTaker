@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AttendanceTaker</string>
+    <string name="app_name">SAS</string>
     <string name="education">Education</string>
     <string name="st_login">Student Login</string>
     <string name="faculty_login">Faculty Login</string>
@@ -21,31 +21,64 @@
     <string name="registration">Registration</string>
     <string name="smart_attendance">Smart Attendance</string>
     <string name="manual_attendance">Manual Attendance</string>
-    <string name="report">Report Link</string>
+    <string name="st_report">Student Report</string>
     <string name="sub">Subject</string>
-    <string name="take_attendance">Take Attendance</string>
+    <string name="start_attendance">Start Attendance</string>
     <string name="stop_attendance">Stop Attendance</string>
     <string name="present">Present</string>
     <string name="check_status">Check Status</string>
     <string name="forgot_pass">FORGOT PASSWORD ?</string>
     <string name="sas">Smart Attendance System</string>
-
-
+    <string name="dashboard">Dashboard</string>
+    <string name="account">My Account</string>
+    <string name="from">From Date</string>
+    <string name="to">To Date</string>
+    <string name="my_report">My Report</string>
+    <string name="generate_report">Generate Report</string>
+    <string name="give_attendance">Give Attendance</string>
+    <string name="no_internet_title">No Connectivity</string>
+    <string name="no_internet_message">Please Check Your Internet Connectivity And Try Again</string>
+    <string name="retry">Retry</string>
+    <string name="clg">College</string>
+    <string name="clgName">B. K. BIRLA COLLEGE OF ARTS, SCIENCE AND COMMERCE (AUTONOMOUS)</string>
+    <string name="college_information">College Information</string>
+    <string name="account_information">My Account Information</string>
+    <string name="designation">Designation</string>
+    <string name="logout">Logout</string>
+    <string name="year">Year</string>
 
 
     //***Spinner Required Strings***
     <string name="sub_prompt">Select Your Subject</string>
     <string name="class_prompt">Select Your Class</string>
     <string-array name="class_arrays">
-        <item>First Year (FY)</item>
-        <item>Second Year (SY)</item>
-        <item>Third Year (TY)</item>
+        <item>First Year</item>
+        <item>Second Year</item>
+        <item>Third Year</item>
     </string-array>
 
     <string name="dept_prompt">Select Your Department</string>
     <string-array name="dept_arrays">
         <item>Computer Science (CS)</item>
     </string-array>
+
+    <string name="month_prompt">Select Month</string>
+    <string-array name="month_arrays">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+
+    <string name="year_prompt">Select Year</string>
     //***End Spinner Required Strings***
 
 </resources>

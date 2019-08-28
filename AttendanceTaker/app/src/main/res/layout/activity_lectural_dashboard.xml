@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10"
     tools:context=".LecturalDashboard">
 
     <android.support.v7.widget.Toolbar
@@ -12,36 +14,172 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
+        app:titleTextColor="@android:color/white"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+        app:title="@string/dashboard"
+        app:contentInsetStartWithNavigation="0dp"
+        app:subtitle="SAS"/>
 
-        />
 
-    <LinearLayout
-        android:id="@+id/linear_layout"
+    <RelativeLayout
+            android:layout_weight="3"
+            android:background="@drawable/login_top"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <TextView
+                android:id="@+id/textGrid"
+                android:text="@string/dashboard"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+    <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/dashboard_toolbar"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
+        android:layout_weight="6"
+        android:columnCount="2"
+        android:padding="15dp"
+        android:rowCount="2"
+        android:layout_height="0dp">
 
-        <Button
-            android:id="@+id/btnSmartAttendance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/smart_attendance" />
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardSmartAttendance"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="@drawable/card_layout_state_change"
+            app:cardElevation="5dp"
+            app:cardCornerRadius="10dp"
+            android:layout_rowWeight="1">
 
-        <Button
-            android:id="@+id/btnManualAttendance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/manual_attendance" />
 
-        <Button
-            android:id="@+id/btnReport"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/report" />
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
 
-</RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_supervisor_account_white_72dp"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/smart_attendance"/>
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardManualAttendance"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="@drawable/card_layout_state_change"
+            app:cardElevation="5dp"
+            app:cardCornerRadius="10dp"
+            android:layout_rowWeight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_person_add_white_72dp"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/manual_attendance"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardReport"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="@drawable/card_layout_state_change"
+            app:cardElevation="5dp"
+            app:cardCornerRadius="10dp"
+            android:layout_rowWeight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_event_note_white_72dp"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/st_report"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardMyAccount"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="@drawable/card_layout_state_change"
+            app:cardElevation="5dp"
+            app:cardCornerRadius="10dp"
+            android:layout_rowWeight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_account_box_white_72dp"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/account"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+
+    </GridLayout>
+
+
+
+</LinearLayout>
