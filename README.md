@@ -1,5 +1,5 @@
 # AttendanceTaker
-**Smart Attendance System(SAS) - Android App **
+**Smart Attendance System(SAS)** - **Android App**
 
 
 *The purpose of developing SAS is to manipulate attendance digitally. It will reduce work of every 
